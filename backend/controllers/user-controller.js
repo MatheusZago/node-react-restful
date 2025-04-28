@@ -17,30 +17,38 @@ const getUsers = async (req, res) => {
     }
 }
 
-const getUserById = async (req, res) => {
+const getUserById = async (req, res, next) => {
     const { id } = req.params;
     try{ 
         const user = await userService.getUserById(id);
         res.status(200).json(user);
     }catch (error) {
-        throw new NotFoundException("User with id " + id + " not found");
+        next(error);
     }
 }
 
-const updateUser = async (req, res) => {
+const updateUser = async (req, res, next) => {
     const { id } = req.params;
     const { email, name } = req.body;
 
-    const user = await userService.updateUser(id, name, email);
-    return res.status(200).json(user);
+    try{
+        const user = await userService.updateUser(id, name, email);
+        return res.status(200).json(user);
+    }catch(error){
+        next(error);
+    }
 
 }
 
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res, next) => {
     const { id } = req.params;
 
-    const result = await userService.deleteUser(id);
-    return res.status(200).json(result);
+    try{
+        const result = await userService.deleteUser(id);
+        return res.status(200).json(result);
+    } catch(error){
+        next(error);
+    }
 
 }
 
