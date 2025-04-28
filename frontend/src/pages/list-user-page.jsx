@@ -1,24 +1,26 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { getAllUsers } from "../services/user-service";
 import UserTable from '../components/user-table'
 
 export default function ListUsersPage() {
-  const [users, setUsers] = useState([]);  
-  const [loading, setLoading] = useState(true);  
-  const [error, setError] = useState(null);  
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/users")  
-      .then((response) => {
-        setUsers(response.data);  
-        setLoading(false);  
-      })
-      .catch((error) => {
-        setError(error.message);  
-        setLoading(false);  
-      });
-  }, []); 
+    const fetchUsers = async () => {
+      try {
+        const data = await getAllUsers(); 
+        setUsers(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchUsers();
+  }, []);
 
   if (loading) return <div>Loading Users...</div>;
   if (error) return <div>Error while loading users: {error}</div>;

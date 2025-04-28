@@ -1,42 +1,43 @@
 import { useState } from "react";
-import axios from "axios";
+import { createUser } from "../services/user-service"
 
 export default function UserForm({ onSuccess, onError }) {
-  const [name, setName] = useState("");  
-  const [email, setEmail] = useState(""); 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); 
+    const userData = { name, email };
 
-    axios.post("http://localhost:3001/users", { name, email })
-      .then((response) => {
-        onSuccess("User created.");  
-        setName("");  
-        setEmail("");  
-      })
-      .catch((error) => {
-        onError("Error while creating user: " + error.message);  
-      });
+    try {
+      const newUser = await createUser(userData);
+      onSuccess("User created successfully!");  
+      setName("");
+      setEmail("");
+    } catch (error) {
+      onError("Failed to create user: " + error.message);  
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <label>Name:</label>
-        <input
-          type="text"
-          value={name}
+        <input 
+          type="text" 
+          value={name} 
           onChange={(e) => setName(e.target.value)} 
-          required
+          required 
         />
       </div>
       <div>
         <label>Email:</label>
-        <input
-          type="email"
-          value={email}
+        <input 
+          type="email" 
+          value={email} 
           onChange={(e) => setEmail(e.target.value)} 
-          required
+          required 
         />
       </div>
       <button type="submit">Create User</button>

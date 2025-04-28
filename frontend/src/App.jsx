@@ -11,7 +11,7 @@ function App() {
         <h1>My App</h1>
         <Routes>
           <Route path="/" element={<ListUsersPage />} />
-          <Route path="/add-user" element={<CreateUserPage />} />
+          <Route path="/add-user" element={<CreateUserPage />} /> 
           <Route path="/search-user" element={<FindUserById/>} />
         </Routes>
       </div>
