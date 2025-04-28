@@ -1,3 +1,5 @@
+import "./css/forms.css";
+
 export default function CreateUserForm({ 
   name, 
   email, 
@@ -11,7 +13,7 @@ export default function CreateUserForm({
   return (
     <div>
       <h1>Create User</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-container">
         <input
           type="text"
           placeholder="Insert user name"
@@ -30,8 +32,8 @@ export default function CreateUserForm({
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {message && <p style={{ color: "green" }}>{message}</p>}
+      {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
+      {message && <p style={{ color: "green", textAlign: "center" }}>{message}</p>}
     </div>
   );
 }

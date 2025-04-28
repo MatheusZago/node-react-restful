@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getUserById } from "../services/user-service"; 
 import UserDetails from "../components/user-details";
+import "../components/css/forms.css"
 
 export default function FindUserById() {
   const [id, setId] = useState("");
@@ -30,7 +31,7 @@ export default function FindUserById() {
   return (
     <div>
       <h1>Search User</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-container">
         <input 
           type="text" 
           placeholder="Insert user Id" 

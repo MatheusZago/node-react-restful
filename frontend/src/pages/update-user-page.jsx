@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getUserById, updateUser } from "../services/user-service";
 import UserUpdateForm from "../components/update-user-form";
+import "../components/css/forms.css";
 
 export default function UpdateUser() {
   const [id, setid] = useState("");
@@ -9,7 +10,7 @@ export default function UpdateUser() {
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  async function handleSearch(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     setError(null);
     setSuccess(null);
@@ -44,7 +45,7 @@ export default function UpdateUser() {
     <div>
       <h1>Update User</h1>
 
-      <form onSubmit={handleSearch}>
+      <form onSubmit={handleSubmit} className="form-container">
         <input
           type="text"
           placeholder="Enter user ID"

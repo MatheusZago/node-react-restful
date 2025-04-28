@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./css/forms.css";
 
 export default function UserUpdateForm({ user, onSubmit }) {
   const [name, setName] = useState(user.name || "");
@@ -10,7 +11,7 @@ export default function UserUpdateForm({ user, onSubmit }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form-container">
       <div>
         <input 
           type="text" 
