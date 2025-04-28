@@ -31,9 +31,21 @@ const updateUser = async (id, name, email) => {
     return user;
 }
 
+const deleteUser = async(id) => {
+    const result = await userRepository.deleteUser(id);
+
+//    if(result == 0 ){
+//        throw new Error("User with id " + id + " not found.");
+//    }
+    
+    return {message: "User with id " + id + " deleted successfully."};
+
+}
+
 module.exports = {
     createUser,
     getUsers,
     getUserById,
-    updateUser
+    updateUser,
+    deleteUser
 }

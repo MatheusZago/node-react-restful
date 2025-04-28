@@ -19,9 +19,15 @@ const updateUser = async (id, name, email) =>{
     return user[0];
 }
 
+const deleteUser = async (id) => {
+    const result = await db('users').where('id', id).del();
+    return result;
+}
+
 module.exports = {
     createUser,
     getUsers,
     getUserByid,
-    updateUser
+    updateUser,
+    deleteUser
 };
