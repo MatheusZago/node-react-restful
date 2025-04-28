@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { deleteUser } from "../services/user-service";
+import DeleteUserForm from "../components/user-delete-form";
 
 export default function DeleteUserPage() {
   const [inputId, setInputId] = useState("");
@@ -28,21 +29,13 @@ export default function DeleteUserPage() {
   }
 
   return (
-    <div>
-      <h1>Delete User</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Insert user Id"
-          value={inputId}
-          onChange={(e) => setInputId(e.target.value)}
-        />
-        <button type="submit">Delete</button>
-      </form>
-
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {message && <p style={{ color: "green" }}>{message}</p>}
-    </div>
+    <DeleteUserForm
+      inputId={inputId}
+      setInputId={setInputId}
+      handleSubmit={handleSubmit}
+      loading={loading}
+      error={error}
+      message={message}
+    />
   );
 }
