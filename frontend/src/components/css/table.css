@@ -1,0 +1,32 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Estilizando o cabeçalho da tabela */
+  th {
+    background-color: #f2f2f2; 
+    padding: 10px; 
+    text-align: left; 
+    border: 1px solid #ddd; 
+  }
+  
+  /* Estilizando as células da tabela */
+  td {
+    padding: 10px; 
+    border: 1px solid #ddd; 
+    text-align: left; 
+  }
+  
+  /* Estilizando as linhas da tabela para um efeito de zebra (alternando cores de fundo) */
+  tr:nth-child(even) {
+    background-color: #f9f9f9; 
+  }
+  
+  /* Estilizando as linhas ao passar o mouse */
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
