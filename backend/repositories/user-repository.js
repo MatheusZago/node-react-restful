@@ -9,7 +9,13 @@ const getUsers = async() => {
     return users;
 }
 
+const getUserByid = async (id) => {
+    const user = await db('users').where({id}).first();
+    return user;
+}
+
 module.exports = {
     createUser,
-    getUsers
+    getUsers,
+    getUserByid
 };
