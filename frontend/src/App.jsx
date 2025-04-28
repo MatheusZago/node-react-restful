@@ -13,7 +13,7 @@ function App() {
         <h1>My App</h1>
         <Routes>
           <Route path="/" element={<ListUsersPage />} />
-          <Route path="/add-user" element={<CreateUserPage />} /> 
+          <Route path="/create-user" element={<CreateUserPage />} /> 
           <Route path="/search-user" element={<FindUserById/>} />
           <Route path="/update-user" element={<UpdateUser/>} />
           <Route path="/delete-user" element={<DeleteUser/>} />

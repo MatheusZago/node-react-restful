@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { deleteUser } from "../services/user-service";
-import DeleteUserForm from "../components/user-delete-form";
+import DeleteUserForm from "../components/delete-user-form";
 
 export default function DeleteUserPage() {
   const [inputId, setInputId] = useState("");

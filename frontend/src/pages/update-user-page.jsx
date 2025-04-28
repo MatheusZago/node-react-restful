@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getUserById, updateUser } from "../services/user-service";
-import UserUpdateForm from "../components/user-update-form";
+import UserUpdateForm from "../components/update-user-form";
 
 export default function UpdateUser() {
   const [id, setid] = useState("");

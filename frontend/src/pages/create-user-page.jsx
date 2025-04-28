@@ -1,28 +1,49 @@
 import { useState } from "react";
-import UserForm from "../components/user-form";
+import { createUser } from "../services/user-service";
+import CreateUserForm from "../components/create-user-form";
 
-export default function AddUserPage() {
-  const [error, setError] = useState(null);  
-  const [success, setSuccess] = useState(null);  
+export default function CreateUserPage() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSuccess = (message) => {
-    setSuccess(message);
-    setError(null);  
-  };
+  async function handleSubmit(event) {
+    event.preventDefault();
 
+    if (!name || !email) {
+      setError("Name and Email are required!");
+      return;
+    }
 
-  const handleError = (message) => {
-    setError(message);
-    setSuccess(null);  
-  };
+    setLoading(true);
+    setError("");
+    setMessage("");
+
+    try {
+      const response = await createUser({ name, email });
+      setMessage(response.message || "User created successfully!");
+      setName("");
+      setEmail("");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to create user. Try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
-    <div>
-      <h1>Add new user</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
-
-      <UserForm onSuccess={handleSuccess} onError={handleError} />
-    </div>
+    <CreateUserForm
+      name={name}
+      email={email}
+      setName={setName}
+      setEmail={setEmail}
+      handleSubmit={handleSubmit}
+      loading={loading}
+      error={error}
+      message={message}
+    />
   );
 }
