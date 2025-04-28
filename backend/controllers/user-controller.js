@@ -7,4 +7,12 @@ const createUser = async (req, res) => {
     res.status(201).json({id: newUser, name, email})
 }
 
-module.exports = {createUser}
+const getUsers = async (req, res) => {
+    const users = await userService.getUsers();
+    res.status(200).json(users);
+}
+
+module.exports = {
+    createUser,
+    getUsers
+}

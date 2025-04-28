@@ -5,4 +5,12 @@ const createUser = async (name, email) => {
     return newUser;
 }
 
-module.exports = {createUser}
+const getUsers = async () => {
+    const users = await userRepository.getUsers();
+    return users;
+}
+
+module.exports = {
+    createUser,
+    getUsers
+}
