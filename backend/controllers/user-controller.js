@@ -1,3 +1,4 @@
+const NotFoundException = require('../exceptions/not-found-exception');
 const userService = require('../services/user-service');
 
 const createUser = async (req, res) => {
@@ -8,14 +9,22 @@ const createUser = async (req, res) => {
 }
 
 const getUsers = async (req, res) => {
-    const users = await userService.getUsers();
-    res.status(200).json(users);
+    try{
+        const users = await userService.getUsers();
+        res.status(200).json(users);
+    }catch(error){
+        next(error);
+    }
 }
 
 const getUserById = async (req, res) => {
     const { id } = req.params;
-    const user = await userService.getUserById(id);
-    res.status(200).json(user);
+    try{ 
+        const user = await userService.getUserById(id);
+        res.status(200).json(user);
+    }catch (error) {
+        throw new NotFoundException("User with id " + id + " not found");
+    }
 }
 
 const updateUser = async (req, res) => {
