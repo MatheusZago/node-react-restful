@@ -5,19 +5,22 @@ import FindUserById from "./pages/search-user";
 import UpdateUser from "./pages/update-user-page";
 import DeleteUser from "./pages/delete-user-page";
 import Header from "./components/header";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; 
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <Router> 
-      <Header/>
+    <Router>
+      <div className="app-container">
+        <Header />
         <Routes>
           <Route path="/" element={<ListUsersPage />} />
-          <Route path="/create-user" element={<CreateUserPage />} /> 
-          <Route path="/search-user" element={<FindUserById/>} />
-          <Route path="/update-user" element={<UpdateUser/>} />
-          <Route path="/delete-user" element={<DeleteUser/>} />
+          <Route path="/create-user" element={<CreateUserPage />} />
+          <Route path="/search-user" element={<FindUserById />} />
+          <Route path="/update-user" element={<UpdateUser />} />
+          <Route path="/delete-user" element={<DeleteUser />} />
         </Routes>
+      </div>
     </Router>
   );
 }
