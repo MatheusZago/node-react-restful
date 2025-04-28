@@ -1,9 +1,15 @@
 const { update } = require('../database');
+const NotFoundException = require('../exceptions/not-found-exception');
 const userRepository = require('../repositories/user-repository');
+const { validateUser, validateId } = require('../validations/user-validation');
 
 const createUser = async (name, email) => {
+
+    validateUser(name, email);
+
     const newUser = await userRepository.createUser(name, email);
     return newUser;
+
 }
 
 const getUsers = async () => {
@@ -12,33 +18,40 @@ const getUsers = async () => {
 }
 
 const getUserById = async (id) => {
+
+    validateId(id);
+
     const user = await userRepository.getUserByid(id);
 
-    if(!user){
-        throw new Error("User with id " + id + " not found.")
-    }
-
+    if (!user) {
+        throw new NotFoundException("User with id " + id + " not found");
+    } 
     return user;
 }
 
 const updateUser = async (id, name, email) => {
+    validateId(id);
+    validateUser(name, email);
+
     const user = await userRepository.updateUser(id, name, email);
 
-    if(user.length == 0 ){
-        throw new Error("User with id " + id + " not found");
+    if (!user) {
+        throw new NotFoundException("User with id " + id + " not found");
     }
 
     return user;
 }
 
-const deleteUser = async(id) => {
+const deleteUser = async (id) => {
+    validateId(id);
+
     const result = await userRepository.deleteUser(id);
 
-//    if(result == 0 ){
-//        throw new Error("User with id " + id + " not found.");
-//    }
-    
-    return {message: "User with id " + id + " deleted successfully."};
+        if(result == 0 ){
+           throw new NotFoundException("User with id " + id + " not found.");
+       }
+
+    return { message: "User with id " + id + " deleted successfully." };
 
 }
 

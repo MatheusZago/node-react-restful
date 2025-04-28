@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('./database')
-const userRoute = require('./routes/user-routes')
+const userRoute = require('./routes/user-routes');
+const globalExceptionHandler = require('./middleware/global-exception-handler');
 
 const app = express();
 const PORT = 3000;
@@ -12,6 +13,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', userRoute);
+app.use(globalExceptionHandler)
 
 app.listen(PORT, () => {
   console.log("The server is running in the port " + PORT);
