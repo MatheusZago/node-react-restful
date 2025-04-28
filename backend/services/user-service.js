@@ -1,10 +1,15 @@
 const { update } = require('../database');
 const NotFoundException = require('../exceptions/not-found-exception');
 const userRepository = require('../repositories/user-repository');
+const { validateUser, validateId } = require('../validations/user-validation');
 
 const createUser = async (name, email) => {
+
+    validateUser(name, email);
+
     const newUser = await userRepository.createUser(name, email);
     return newUser;
+
 }
 
 const getUsers = async () => {
@@ -13,11 +18,14 @@ const getUsers = async () => {
 }
 
 const getUserById = async (id) => {
+
+    validateId(id);
+
     const user = await userRepository.getUserByid(id);
 
     if (!user) {
         throw new NotFoundException("User with id " + id + " not found");
-    }
+    } 
     return user;
 }
 

@@ -1,4 +1,3 @@
-const NotFoundException = require('../exceptions/not-found-exception');
 const userService = require('../services/user-service');
 
 const createUser = async (req, res) => {
