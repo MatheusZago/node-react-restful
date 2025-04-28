@@ -14,8 +14,14 @@ const getUserByid = async (id) => {
     return user;
 }
 
+const updateUser = async (id, name, email) =>{
+    const user = await db('users').where('id', id).update({name, email}).returning(['email', 'name']); 
+    return user[0];
+}
+
 module.exports = {
     createUser,
     getUsers,
-    getUserByid
+    getUserByid,
+    updateUser
 };

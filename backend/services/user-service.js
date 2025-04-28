@@ -1,3 +1,4 @@
+const { update } = require('../database');
 const userRepository = require('../repositories/user-repository');
 
 const createUser = async (name, email) => {
@@ -12,11 +13,27 @@ const getUsers = async () => {
 
 const getUserById = async (id) => {
     const user = await userRepository.getUserByid(id);
+
+    if(!user){
+        throw new Error("User with id " + id + " not found.")
+    }
+
+    return user;
+}
+
+const updateUser = async (id, name, email) => {
+    const user = await userRepository.updateUser(id, name, email);
+
+    if(user.length == 0 ){
+        throw new Error("User with id " + id + " not found");
+    }
+
     return user;
 }
 
 module.exports = {
     createUser,
     getUsers,
-    getUserById
+    getUserById,
+    updateUser
 }

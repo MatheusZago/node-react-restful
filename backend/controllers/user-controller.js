@@ -13,13 +13,23 @@ const getUsers = async (req, res) => {
 }
 
 const getUserById = async (req, res) => {
-    const id = req.params.id;
+    const { id } = req.params;
     const user = await userService.getUserById(id);
     res.status(200).json(user);
+}
+
+const updateUser = async (req, res) => {
+    const { id } = req.params;
+    const { email, name } = req.body;
+
+    const user = await userService.updateUser(id, name, email);
+    return res.status(200).json(user);
+
 }
 
 module.exports = {
     createUser,
     getUsers, 
-    getUserById
+    getUserById,
+    updateUser
 }
