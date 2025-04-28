@@ -30,6 +30,9 @@ const getUserById = async (id) => {
 }
 
 const updateUser = async (id, name, email) => {
+    validateId(id);
+    validateUser(name, email);
+
     const user = await userRepository.updateUser(id, name, email);
 
     if (!user) {
@@ -40,6 +43,8 @@ const updateUser = async (id, name, email) => {
 }
 
 const deleteUser = async (id) => {
+    validateId(id);
+
     const result = await userRepository.deleteUser(id);
 
         if(result == 0 ){
