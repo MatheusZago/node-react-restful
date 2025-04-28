@@ -1,0 +1,33 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.form-container input {
+  width: 300px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.form-container button {
+  width: 200px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.form-container button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+h1{
+  text-align: center;
+}

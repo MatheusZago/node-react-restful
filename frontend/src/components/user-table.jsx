@@ -1,3 +1,5 @@
+import "./css/table.css"
+
 export default function UserTable({ users }) {
     return (
       <table>
