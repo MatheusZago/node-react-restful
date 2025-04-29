@@ -24,8 +24,8 @@ frontend/
   │   ├── routes/   
   │   ├── services/ 
   │   ├── utils/    
-  │   └── App.jsx     
-backend/                 
+  │   └── App.jsx       
+backend/                  
   ├── src/
   │   ├── config/ 
   │   ├── controllers/ 
@@ -37,7 +37,7 @@ backend/
   │   ├── routes/    
   │   ├── services/  
   │   ├── utils/ 
-  │   └── server.js       
+  │   └── server.js        
 
 ---------
 
