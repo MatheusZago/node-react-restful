@@ -1,12 +1,15 @@
 exports.up = function(knex) {
-    return knex.schema.createTable('users', function(table) {
-      table.increments('id').primary(); // ID auto-incrementável
-      table.string('name').notNullable(); // Nome do usuário
-      table.string('email').notNullable().unique(); // Email único
-      table.timestamps(true, true); // created_at e updated_at automáticos
-    });
-  };
-  
+  return knex.schema.hasTable('users').then(function(exists) {
+    if (!exists) {
+      return knex.schema.createTable('users', function(table) {
+        table.increments('id').primary(); 
+        table.string('name').notNullable(); 
+        table.string('email').notNullable().unique(); 
+        table.timestamps(true, true); 
+      });
+    }
+  });
+};
   exports.down = function(knex) {
     return knex.schema.dropTableIfExists('users');
   };
