@@ -8,6 +8,8 @@ export function handleApiError(error) {
           return data.error?.message || "Invalid field.";
         case 404:
           return data.error?.message || "Id not found.";
+        case 409:
+          return data.error?.message || "Email already in use";
         case 500:
           return "Server error. Please try again later.";
         default:

@@ -7,10 +7,6 @@ const ConflictException = require('../exceptions/conflict-exception');
 
 const globalExceptionHandler = (error, req, res, next) => {
 
-    console.log('error RECEBIDO ===>', error);
-    console.log('É instanceof NotFoundException?', error instanceof NotFoundException);
-    console.log('Tipo do erro:', error.constructor.name);
-
   if (error instanceof NotFoundException || error instanceof ValidationException 
     || error instanceof UnauthorizedException || error instanceof InternalErrorException
     || error instanceof InvalidRequestException || error instanceof ConflictException) {

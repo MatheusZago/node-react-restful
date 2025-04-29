@@ -1,5 +1,5 @@
 class InvalidRequestException extends Error {
-    constructor(message = 'Invalid Request failed') {
+    constructor(message = 'Invalid Request') {
       super(message);
       this.statusCode = 400; 
       this.message = message;
