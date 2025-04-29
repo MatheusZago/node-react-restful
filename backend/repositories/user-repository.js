@@ -18,8 +18,6 @@ const getUsers = async () => {
 const getUserByid = async (id) => {
     const user = await db('users').where({ id }).first();
 
-    if (!user) return null;
-
     return new User(user.id, user.name, user.email);
 };
 

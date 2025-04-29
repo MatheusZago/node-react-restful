@@ -6,11 +6,8 @@ const UserConverter = require('../utils/user-converter');
 const createUser = async (userDTO) => {
     validateUser(userDTO.getName(), userDTO.getEmail());
 
-
     const user = UserConverter.dtoToUser(userDTO);
-
     const createdUser = await userRepository.createUser(user);
-    
 
     return UserConverter.userToDTO(createdUser);
 };
