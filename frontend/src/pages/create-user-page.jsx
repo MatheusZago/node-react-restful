@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createUser } from "../services/user-service";
 import CreateUserForm from "../components/create-user-form";
+import { handleApiError } from "../utils/handle-api-exceptions"; 
 
 export default function CreateUserPage() {
   const [name, setName] = useState("");
@@ -28,7 +29,8 @@ export default function CreateUserPage() {
       setEmail("");
     } catch (err) {
       console.error(err);
-      setError("Failed to create user. Try again.");
+      const errorMessage = handleApiError(err);  // Aqui!
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
