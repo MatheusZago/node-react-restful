@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { deleteUser } from "../services/user-service";
 import DeleteUserForm from "../components/delete-user-form";
+import { handleApiError } from "../utils/handle-api-exceptions"; 
 
 export default function DeleteUserPage() {
   const [inputId, setInputId] = useState("");
@@ -11,7 +12,10 @@ export default function DeleteUserPage() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (!inputId) return;
+    if (!inputId) {
+      setError("User ID is required!");
+      return;
+    }
 
     setLoading(true);
     setError("");
@@ -20,9 +24,11 @@ export default function DeleteUserPage() {
     try {
       const response = await deleteUser(inputId);
       setMessage(response.message || "User deleted successfully!");
+      setInputId(""); 
     } catch (err) {
       console.error(err);
-      setError("Failed to delete user. Please check the ID.");
+      const errorMessage = handleApiError(err);  
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

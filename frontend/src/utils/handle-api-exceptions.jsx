@@ -5,13 +5,13 @@ export function handleApiError(error) {
   
       switch (status) {
         case 400:
-          return data.error?.message || "Error: Name and/or email invalid.";
+          return data.error?.message || "Invalid field.";
         case 404:
-          return data.error?.message || "Error: Id not found.";
+          return data.error?.message || "Id not found.";
         case 500:
-          return "Error: Server error. Please try again later.";
+          return "Server error. Please try again later.";
         default:
-          return "Error: Unexpected error occurred.";
+          return "Unexpected error occurred.";
       }
     } else if (error.request) {
       return "No response from server. Please check your internet connection.";
