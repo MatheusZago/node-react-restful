@@ -30,11 +30,11 @@ const getUserById = async (id) => {
     return UserConverter.userToDTO(user);
 };
 
-const updateUser = async (userDTO) => {
-    validateId(userDTO.getId());
+const updateUser = async (id, userDTO) => {
+    validateId(id);
     validateUser(userDTO.getName(), userDTO.getEmail());
 
-    const userEntity = UserConverter.dtoToUser(userDTO);
+    const userEntity = UserConverter.dtoToUser(id, userDTO);
 
     const updatedUser = await userRepository.updateUser(userEntity);
 

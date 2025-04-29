@@ -41,9 +41,9 @@ class UserController {
         try{
             const { id } = req.params;
             const { email, name } = req.body;
-            const userDTO = new UserDTO({ id, name, email });
+            const userDTO = new UserDTO({name, email });
     
-            const user = await userService.updateUser(userDTO);
+            const user = await userService.updateUser(id, userDTO);
             return res.status(200).json(user);
         }catch(error){
             next(error);

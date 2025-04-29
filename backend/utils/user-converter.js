@@ -7,8 +7,8 @@ const userToDTO = (user) => {
       email: user.getEmail()  
   });
 };
-const dtoToUser = (userDTO) => {
-  return new User(null, userDTO.getName(), userDTO.getEmail());
+const dtoToUser = (id, userDTO) => {
+    return new User(id, userDTO.getName(), userDTO.getEmail());
 }
 
 module.exports = {
