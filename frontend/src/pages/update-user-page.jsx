@@ -2,6 +2,7 @@ import { useState } from "react";
 import { getUserById, updateUser } from "../services/user-service";
 import UserUpdateForm from "../components/update-user-form";
 import "../components/css/forms.css";
+import { handleApiError } from "../utils/handle-api-exceptions"; 
 
 export default function UpdateUser() {
   const [id, setid] = useState("");
@@ -23,7 +24,8 @@ export default function UpdateUser() {
       const userData = await getUserById(id);
       setUser(userData);
     } catch (err) {
-      setError("User not found.");
+      const friendly = handleApiError(err);
+      setError(friendly);
     } finally {
       setLoading(false);
     }
@@ -37,7 +39,8 @@ export default function UpdateUser() {
       await updateUser(id, updatedData);
       setSuccess("User updated successfully!");
     } catch (err) {
-      setError("Error updating user.");
+      const friendly = handleApiError(err);
+      setError(friendly);
     }
   }
 
@@ -56,8 +59,8 @@ export default function UpdateUser() {
       </form>
 
       {loading && <p>Loading user...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
+      {success && <p style={{ color: "green", textAlign: "center" }}>{success}</p>}
 
       {user && (
         <UserUpdateForm user={user} onSubmit={handleUpdate} />
