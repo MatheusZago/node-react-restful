@@ -18,6 +18,8 @@ const getUsers = async () => {
 const getUserByid = async (id) => {
     const user = await db('users').where({ id }).first();
 
+    if(!user) return null;
+
     return new User(user.id, user.name, user.email);
 };
 
@@ -27,6 +29,8 @@ const updateUser = async (user) => {
         .update({name: user.getName(), email: user.getEmail()
         })
         .returning(['id', 'name', 'email']);
+
+    if(!updated) return null;
 
     return new User(updated.id, updated.name, updated.email);
 };

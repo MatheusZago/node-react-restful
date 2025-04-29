@@ -6,7 +6,7 @@ const UserConverter = require('../utils/user-converter');
 const createUser = async (userDTO) => {
     validateUser(userDTO.getName(), userDTO.getEmail());
 
-    const user = UserConverter.dtoToUser(userDTO);
+    const user = UserConverter.dtoToUser(null, userDTO);
     const createdUser = await userRepository.createUser(user);
 
     return UserConverter.userToDTO(createdUser);
@@ -29,17 +29,21 @@ const getUserById = async (id) => {
 };
 
 const updateUser = async (id, userDTO) => {
-    validateId(id);
-    validateUser(userDTO.getName(), userDTO.getEmail());
+    validateId(id);  // Valida o id
+    validateUser(userDTO.getName(), userDTO.getEmail());  // Valida os dados do usuário
 
+    // Passando o id diretamente para o dtoToUser para garantir a criação do User corretamente
     const userEntity = UserConverter.dtoToUser(id, userDTO);
 
+    // Tentando atualizar o usuário no repositório
     const updatedUser = await userRepository.updateUser(userEntity);
 
+    // Se não encontrar o usuário, lançamos a exceção
     if (!updatedUser) {
-        throw new NotFoundException(`User with id ${userDTO.getId()} not found`);
+        throw new NotFoundException(`User with id ${id} not found`);
     }
 
+    // Retorna o usuário atualizado como DTO
     return UserConverter.userToDTO(updatedUser);
 };
 
