@@ -3,19 +3,20 @@ const ValidationException = require('../exceptions/validation-exception');
 const UnauthorizedException = require('../exceptions/unauthorized-exception');
 const InternalErrorException = require('../exceptions/internal-error-exception');
 const InvalidRequestException = require('../exceptions/invalid-request-exception');
+const ConflictException = require('../exceptions/conflict-exception');
 
-const globalExceptionHandler = (err, req, res, next) => {
+const globalExceptionHandler = (error, req, res, next) => {
 
-    console.log('ERR RECEBIDO ===>', err);
-    console.log('É instanceof NotFoundException?', err instanceof NotFoundException);
-    console.log('Tipo do erro:', err.constructor.name);
+    console.log('error RECEBIDO ===>', error);
+    console.log('É instanceof NotFoundException?', error instanceof NotFoundException);
+    console.log('Tipo do erro:', error.constructor.name);
 
-  if (err instanceof NotFoundException || err instanceof ValidationException 
-    || err instanceof UnauthorizedException || err instanceof InternalErrorException
-    || err instanceof InvalidRequestException) {
-    return res.status(err.statusCode).json({
+  if (error instanceof NotFoundException || error instanceof ValidationException 
+    || error instanceof UnauthorizedException || error instanceof InternalErrorException
+    || error instanceof InvalidRequestException || error instanceof ConflictException) {
+    return res.status(error.statusCode).json({
       status: 'error',
-      message: err.message,
+      message: error.message,
     });
   }
 

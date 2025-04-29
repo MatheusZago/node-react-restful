@@ -40,10 +40,19 @@ const deleteUser = async (id) => {
     return result;
 };
 
+const getUserByEmail = async (email) => {
+    const user = await db('users').where({ email }).first();
+
+    if(!user) return null;
+
+    return new User(user.id, user.name, user.email);
+}
+
 module.exports = {
     createUser,
     getUsers,
     getUserByid,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserByEmail
 };
