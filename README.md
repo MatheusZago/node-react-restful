@@ -18,6 +18,7 @@ Backend: Node.js, Express, PostgreSQL
 ## Project Structure
 ---------
 frontend/
+
   ├── src/
   │   ├── components/  
   │   ├── pages/      
@@ -25,7 +26,8 @@ frontend/
   │   ├── services/      
   │   ├── utils/    
   │   └── App.js    
-backend/                  
+backend/   
+               
   ├── config/  
   ├── controllers/      
   ├── exceptions/    
