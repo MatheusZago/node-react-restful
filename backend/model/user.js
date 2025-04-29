@@ -1,28 +1,28 @@
 class User {
   constructor(id, name, email) {
-    this._id = id;
-    this._name = name;
-    this._email = email;
+    this.id = id;
+    this.name = name;
+    this.email = email;
   }
 
   getId() {
-    return this._id;
+    return this.id;
   }
 
   getName() {
-    return this._name; 
+    return this.name; 
   }
 
   getEmail() {
-    return this._email;  
+    return this.email;  
   }
 
   setName(name) {
-    this._name = name; 
+    this.name = name; 
   }
 
   setEmail(email) {
-    this._email = email;  
+    this.email = email;  
   }
 }
 

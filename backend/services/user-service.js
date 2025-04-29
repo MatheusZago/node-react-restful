@@ -13,9 +13,7 @@ const createUser = async (userDTO) => {
 };
 
 const getUsers = async () => {
-    const users = await userRepository.getUsers();
-
-    return users.map(user => UserConverter.userToDTO(user));
+    return await userRepository.getUsers();
 };
 
 const getUserById = async (id) => {
