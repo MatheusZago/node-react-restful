@@ -20,24 +20,23 @@ Backend: Node.js, Express, PostgreSQL
 frontend/
   ├── src/
   │   ├── components/  
-  │   ├── pages/     
-  │   ├── routes/   
-  │   ├── services/ 
-  │   ├── utils/    
-  │   └── App.jsx       
-backend/                  
-  ├── src/
-  │   ├── config/ 
-  │   ├── controllers/ 
-  │   ├── exceptions/ 
-  │   ├── middleware/ 
-  │   ├── migrations/ 
-  │   ├── models/     
-  │   ├── repositories/  
+  │   ├── pages/      
   │   ├── routes/    
-  │   ├── services/  
-  │   ├── utils/ 
-  │   └── server.js        
+  │   ├── services/      
+  │   ├── utils/    
+  │   └── App.js    
+backend/                  
+  ├── config/  
+  ├── controllers/      
+  ├── exceptions/    
+  ├── middleware/      
+  ├── migrations/    
+  ├── models/  
+  ├── repositories/      
+  ├── routes/    
+  ├── services/      
+  ├── utils/ 
+  └── App.js         
 
 ---------
 
