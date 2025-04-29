@@ -1,59 +1,60 @@
-const { update } = require('../database');
-const NotFoundException = require('../exceptions/not-found-exception');
 const userRepository = require('../repositories/user-repository');
-const { validateUser, validateId } = require('../validations/user-validation');
+const { validateUser, validateId, validateEmail } = require('../validations/user-validation');
+const NotFoundException = require('../exceptions/not-found-exception');
+const UserConverter = require('../utils/user-converter');
 
-const createUser = async (name, email) => {
+const createUser = async (userDTO) => {
+    await validateUser(userDTO.getName(), userDTO.getEmail());
+    await validateEmail(userDTO.getEmail());
 
-    validateUser(name, email);
+    const user = UserConverter.dtoToUser(null, userDTO);
+    const createdUser = await userRepository.createUser(user);
 
-    const newUser = await userRepository.createUser(name, email);
-    return newUser;
-
-}
+    return UserConverter.userToDTO(createdUser);
+};
 
 const getUsers = async () => {
-    const users = await userRepository.getUsers();
-    return users;
-}
+    return await userRepository.getUsers();
+};
 
 const getUserById = async (id) => {
-
     validateId(id);
 
     const user = await userRepository.getUserByid(id);
 
     if (!user) {
-        throw new NotFoundException("User with id " + id + " not found");
-    } 
-    return user;
-}
-
-const updateUser = async (id, name, email) => {
-    validateId(id);
-    validateUser(name, email);
-
-    const user = await userRepository.updateUser(id, name, email);
-
-    if (!user) {
-        throw new NotFoundException("User with id " + id + " not found");
+        throw new NotFoundException(`User with id ${id} not found`);
     }
 
-    return user;
-}
+    return UserConverter.userToDTO(user);
+};
+
+const updateUser = async (id, userDTO) => {
+    validateId(id);  
+    validateUser(userDTO.getName(), userDTO.getEmail()); 
+    const userEntity = UserConverter.dtoToUser(id, userDTO);
+
+    const updatedUser = await userRepository.updateUser(userEntity);
+
+    if (!updatedUser) {
+        throw new NotFoundException(`User with id ${id} not found`);
+    }
+
+
+    return UserConverter.userToDTO(updatedUser);
+};
 
 const deleteUser = async (id) => {
     validateId(id);
 
     const result = await userRepository.deleteUser(id);
 
-        if(result == 0 ){
-           throw new NotFoundException("User with id " + id + " not found.");
-       }
+    if (result === 0) {
+        throw new NotFoundException(`User with id ${id} not found`);
+    }
 
-    return { message: "User with id " + id + " deleted successfully." };
-
-}
+    return { message: `User with id ${id} deleted successfully.` };
+};
 
 module.exports = {
     createUser,
@@ -61,4 +62,4 @@ module.exports = {
     getUserById,
     updateUser,
     deleteUser
-}
+};

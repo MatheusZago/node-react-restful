@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getAllUsers } from "../services/user-service";
 import UserTable from '../components/user-table'
+import { handleApiError } from "../utils/handle-api-exceptions"; 
 
 export default function ListUsersPage() {
   const [users, setUsers] = useState([]);
@@ -12,8 +13,9 @@ export default function ListUsersPage() {
       try {
         const data = await getAllUsers(); 
         setUsers(data);
-      } catch (error) {
-        setError(error.message);
+      } catch (err) {
+        const errorMessage = handleApiError(err);
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -23,11 +25,11 @@ export default function ListUsersPage() {
   }, []);
 
   if (loading) return <div>Loading Users...</div>;
-  if (error) return <div>Error while loading users: {error}</div>;
+  if (error) return <div style={{ color: "red", textAlign: "center" }}>{error}</div>;
 
   return (
     <div>
-      <h1>User List</h1>
+      <h1 style={{ textAlign: "center" }}>User List</h1>
       <UserTable users={users} />
     </div>
   );

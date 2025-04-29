@@ -1,7 +1,7 @@
 class ValidationException extends Error {
     constructor(message = 'Validation failed') {
       super(message);
-      this.statusCode = 400; // Definindo o código de status para "Bad Request"
+      this.statusCode = 400; 
       this.message = message;
   
       if (Error.captureStackTrace) {

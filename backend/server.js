@@ -1,12 +1,14 @@
 const express = require('express');
-const db = require('./database')
+const db = require('./config/database')
+const cors = require('cors');
 const userRoute = require('./routes/user-routes');
 const globalExceptionHandler = require('./middleware/global-exception-handler');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
-app.use(express.json()) 
+app.use(cors()); 
+app.use(express.json())
 
 app.get('/', (req, res) => {
   res.send('The server is working!');

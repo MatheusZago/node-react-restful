@@ -1,51 +1,64 @@
 const userService = require('../services/user-service');
+const UserDTO = require('../model/dto/user-dto');
 
-const createUser = async (req, res) => {
-    const {name, email} = req.body;
- 
-        const newUser = await userService.createUser(name, email);
-        res.status(201).json({id: newUser, name, email})
+class UserController {
+    static async createUser(req, res, next) {
+        try{
+            const { name, email } = req.body;
+            const userDTO = new UserDTO({ name, email });
     
-
-}
-
-const getUsers = async (req, res) => {
-
-        const users = await userService.getUsers();
-        res.status(200).json(users);
-}
-
-const getUserById = async (req, res) => {
-    const { id } = req.params;
-
-        const user = await userService.getUserById(id);
-        res.status(200).json(user);
+            const newUser = await userService.createUser(userDTO);
     
+            res.status(201).json({
+                name: newUser.getName(),
+                email: newUser.getEmail()
+            });
+        }catch(error){
+            next(error);
+        }
+    }
+
+    static async getUsers(req, res, next) {
+        try{
+            const users = await userService.getUsers();
+            res.status(200).json(users);
+        }catch(error){
+            next(error);
+        }
+    }
+
+    static async getUserById(req, res, next) {
+        try{
+            const { id } = req.params;
+            const user = await userService.getUserById(id);
+            res.status(200).json(user);
+        }catch(error){
+            next(error);
+        }
+    }
+
+    static async updateUser(req, res, next) {
+        try{
+            const { id } = req.params;
+            const { email, name } = req.body;
+            const userDTO = new UserDTO({name, email });
+    
+            const user = await userService.updateUser(id, userDTO);
+            return res.status(200).json(user);
+        }catch(error){
+            next(error);
+        }
+    }
+
+    static async deleteUser(req, res, next) {
+        try{
+            const { id } = req.params;
+            const result = await userService.deleteUser(id);
+            return res.status(200).json(result);
+        }catch(error){
+            next(error);
+        }
+    }
 }
 
-const updateUser = async (req, res, next) => {
-    const { id } = req.params;
-    const { email, name } = req.body;
-
-        const user = await userService.updateUser(id, name, email);
-        return res.status(200).json(user);
-
-
-}
-
-const deleteUser = async (req, res, next) => {
-    const { id } = req.params;
-
-
-        const result = await userService.deleteUser(id);
-        return res.status(200).json(result);
-
-}
-
-module.exports = {
-    createUser,
-    getUsers, 
-    getUserById,
-    updateUser,
-    deleteUser
-}
+module.exports = UserController;

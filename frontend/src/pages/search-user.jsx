@@ -2,6 +2,7 @@ import { useState } from "react";
 import { getUserById } from "../services/user-service"; 
 import UserDetails from "../components/user-details";
 import "../components/css/forms.css"
+import { handleApiError } from "../utils/handle-api-exceptions"; 
 
 export default function FindUserById() {
   const [id, setId] = useState("");
@@ -19,11 +20,13 @@ export default function FindUserById() {
     getUserById(id)  
       .then((response) => {
         setUser(response);  
-        setLoading(false);
       })
-      .catch((error) => {
+      .catch((err) => {
         setUser(null);
-        setError("User not found or error.");
+        const friendly = handleApiError(err);
+        setError(friendly);
+      })
+      .finally(() => {
         setLoading(false);
       });
   }
@@ -42,7 +45,7 @@ export default function FindUserById() {
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
       {user && <UserDetails user={user} />}
     </div>
   );
