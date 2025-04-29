@@ -25,7 +25,8 @@ frontend/
   │   ├── routes/    
   │   ├── services/      
   │   ├── utils/    
-  │   └── App.js    
+  │   └── App.js  
+  
 backend/   
                
   ├── config/  
